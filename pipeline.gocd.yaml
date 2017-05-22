@@ -1,0 +1,28 @@
+pipelines:
+  Build_builder:
+    group: builder
+    label_template: "${repository[:8]}"
+    materials:
+      repository:
+        git: git@github.com:sebastianhutter/docker-builder.git
+    stages:
+      - Build:
+          jobs:
+            build:
+              tasks:
+               - exec:
+                   command: make
+                   arguments:
+                    - build_latest
+               - exec:
+                   command: make
+                   arguments:
+                    - build_commit
+               - exec:
+                   command: make
+                   arguments:
+                    - push_latest
+               - exec:
+                   command: make
+                   arguments:
+                    - push_commit
