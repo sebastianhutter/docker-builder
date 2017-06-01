@@ -13,16 +13,40 @@ pipelines:
                - exec:
                    command: make
                    arguments:
+                    - OS="debian"
                     - build_latest
                - exec:
                    command: make
                    arguments:
+                    - OS="ubuntu"
+                    - build_latest
+               - exec:
+                   command: make
+                   arguments:
+                    - OS="debian"
                     - build_commit
                - exec:
                    command: make
                    arguments:
+                    - OS="ubuntu"
+                    - build_commit
+               - exec:
+                   command: make
+                   arguments:
+                    - OS="debian"
                     - push_latest
                - exec:
                    command: make
                    arguments:
+                    - OS="ubuntu"
+                    - push_latest
+               - exec:
+                   command: make
+                   arguments:
+                    - OS="debian"
+                    - push_commit
+               - exec:
+                   command: make
+                   arguments:
+                    - OS="ubuntu"
                     - push_commit
