@@ -1,5 +1,5 @@
 pipelines:
-  Build_builder:
+  Build_debian:
     group: builder
     label_template: "${repository[:8]}"
     materials:
@@ -18,33 +18,44 @@ pipelines:
                - exec:
                    command: make
                    arguments:
-                    - OS="ubuntu"
-                    - build_latest
-               - exec:
-                   command: make
-                   arguments:
                     - OS="debian"
                     - build_commit
                - exec:
                    command: make
                    arguments:
-                    - OS="ubuntu"
-                    - build_commit
-               - exec:
-                   command: make
-                   arguments:
                     - OS="debian"
-                    - push_latest
-               - exec:
-                   command: make
-                   arguments:
-                    - OS="ubuntu"
                     - push_latest
                - exec:
                    command: make
                    arguments:
                     - OS="debian"
                     - push_commit
+  Build_ubuntu:
+    group: builder
+    label_template: "${repository[:8]}"
+    materials:
+      repository:
+        git: git@github.com:sebastianhutter/docker-builder.git
+    stages:
+      - Build:
+          jobs:
+            build:
+              tasks:
+               - exec:
+                   command: make
+                   arguments:
+                    - OS="ubuntu"
+                    - build_latest
+               - exec:
+                   command: make
+                   arguments:
+                    - OS="ubuntu"
+                    - build_commit
+               - exec:
+                   command: make
+                   arguments:
+                    - OS="ubuntu"
+                    - push_latest
                - exec:
                    command: make
                    arguments:
